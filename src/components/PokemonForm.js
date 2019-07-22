@@ -13,19 +13,31 @@ class PokemonForm extends React.Component {
     }
   }
 
+  handleSubmit = event => {
+    event.preventDefault()
+    // send data (ex. this.state) to pokemon index
+    this.props.handleNewPokemon(this.state)
+  }
+
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    }, () => console.log(this.state))
+
+  }
+
   render() {
+    console.log(this.state)
     return (
       <div>
         <h3>Add a Pokemon!</h3>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group widths="equal">
-            <Form.Input fluid label="Name" placeholder="Name" name="name" />
-            <Form.Input fluid label="hp" placeholder="hp" name="hp" />
-            <Form.Input fluid label="Front Image URL" placeholder="url" name="frontUrl" />
-            <Form.Input fluid label="Back Image URL" placeholder="url" name="backUrl" />
-          </Form.Group>
-          <Form.Button>Submit</Form.Button>
-        </Form>
+        <form onSubmit={this.handleSubmit}>
+        <input type='text' value={this.state.name} name='name' onChange={this.handleChange} placeholder='Name' />
+        <input type='text' value={this.state.hp} name='hp' onChange={this.handleChange} placeholder='HP'/>
+        <input type='text' value={this.state.frontUrl} name='frontUrl' onChange={this.handleChange} placeholder='Front URL'/>
+        <input type='text' value={this.state.backUrl} name='backUrl' onChange={this.handleChange} placeholder='Back URL'/>
+        <input type='submit'/>
+        </form>
       </div>
     )
   }
